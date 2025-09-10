@@ -1,0 +1,13 @@
+[project]
+name = "helloworld"
+version = "0.1.0"
+description = "A tiny hello world package"
+authors = [{ name = "You" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+

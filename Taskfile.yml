@@ -1,0 +1,41 @@
+# Taskfile.yml
+version: '3'
+
+vars:
+  IMAGE: foos.net/python3
+  TAG: 'latest'
+  APP_MODULE: app.main:app
+  PLATFORMS: linux/amd64
+
+tasks:
+  build:
+    desc: Build production image
+    cmds:
+      - docker buildx build --target {{.TAG}}
+        --platform {{.PLATFORMS}} 
+        -t {{.IMAGE}}:{{.TAG}} .
+
+  run:
+    desc: Run container
+    cmds:
+      - docker run --rm -e APP_MODULE={{.APP_MODULE}} {{.IMAGE}}:{{.TAG}}
+
+  dev:
+    desc: Hot-reload dev (bind mount)
+    deps: [dev-image]
+    cmds:
+      - docker run --rm -it 
+        -e APP_MODULE={{.APP_MODULE}}
+        -v $PWD/app:/app/app {{.IMAGE}}:dev
+
+  dev-image:
+    desc: Build runtime stage as dev base
+    cmds:
+      - docker buildx build --target dev -t {{.IMAGE}}:dev .
+
+  test:
+    desc: Run pytest in container
+    deps: [dev-image]
+    cmds:
+      - docker run --rm -v $PWD:/app -w /app {{.IMAGE}}:dev pytest -q
+
