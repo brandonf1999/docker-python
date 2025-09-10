@@ -1,7 +1,8 @@
 #!/bin/env python3
 
-from helloworld.main import hello
+from helloworld.main import HelloWorld
 
 def test_hello_function():
-    assert hello() == "Hello, World!"
+    hw = HelloWorld()
+    assert hw.hello() == "Hello, World!"
 

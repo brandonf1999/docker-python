@@ -11,7 +11,7 @@ tasks:
   build:
     desc: Build production image
     cmds:
-      - docker buildx build --target {{.TAG}}
+      - docker buildx build --target runtime
         --platform {{.PLATFORMS}} 
         -t {{.IMAGE}}:{{.TAG}} .
 

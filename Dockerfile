@@ -12,7 +12,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY src/ ./src/
-RUN pip install -e ./src/helloworld/
+RUN pip install -e ./src/
 
 CMD ["python", "-m", "helloworld.main"]
 
@@ -31,7 +31,7 @@ COPY requirements-dev.txt .
 RUN pip install -r requirements-dev.txt
 
 COPY src/ ./src/
-RUN pip install -e ./src/helloworld/
+RUN pip install -e ./src/
 
 CMD ["python", "-m", "helloworld.main"]
 
